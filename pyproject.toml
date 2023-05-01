@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "clipwt"
+version = "0.1.0"
+description = "Little tool to gather content from your clipboard"
+authors = ["Nig3l <nig3lpro@gmail.com>"]
+license = "MIT LICENSE"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+customtkinter = "^5.1.2"
+pillow = "^9.5.0"
+
+[tool.poetry.scripts]
+clipwt = 'clipwt.clipwt:launch'
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
