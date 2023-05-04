@@ -6,7 +6,9 @@
 
 ClipWt is a little tool developped in order to store clipboard content into a place.
 
-![ClipWt - UI](./ressources/clipwt.png)
+<center>
+<img src="./ressources/clipwt.png" width=160>
+</center>
 
 ## 🐛 Issues / Bugs / FAQs / Feature Requests
 
@@ -34,5 +36,6 @@ Individiual licensing arrangements can be made if this is an issue for your proj
 
 ## 👏 Acknowledgments
 
+* **CustomTktinter** - [Github](https://github.com/TomSchimansky/CustomTkinter)
 * **Clipboard Icon** - *Created by Freepik* - [Flaticon](https://www.flaticon.com/free-icons/clipboard")
 * **Billie Thompson** - *README & Contribution Templates* - [PurpleBooth](https://github.com/PurpleBooth)
