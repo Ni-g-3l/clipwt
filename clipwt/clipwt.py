@@ -1,8 +1,8 @@
 import os
 import tkinter as tk
 from tkinter import *
-from PIL import Image
 import customtkinter
+from PIL import Image
 
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("blue")
@@ -41,8 +41,8 @@ class ClipWt:
         btn_frame = customtkinter.CTkFrame(master=self._window)
         btn_frame.pack()
 
-        self._state_btn = customtkinter.CTkButton(master=btn_frame, image=PLAY_ICON, text="",
-                             command=self.start_watching, border_color="red")
+        self._state_btn = customtkinter.CTkButton(master=btn_frame, image=PLAY_ICON,
+                            text="", command=self.start_watching, border_color="red")
         self._state_btn.pack(expand=True, fill=tk.BOTH)
 
     def _init_clipboard_storage(self):
@@ -68,7 +68,6 @@ class ClipWt:
         btn_clear.grid(row=0, column=1, padx=5, pady=5, sticky="nsew")
 
     def get_clipboard_content(self):
-    
         try:
             clipboard_content = self._window.selection_get(selection="CLIPBOARD").strip()
         except:
@@ -90,19 +89,20 @@ class ClipWt:
             self._text_box.after(1000, self.get_clipboard_content)
 
     def stop_watching(self):
-        self._status = ClipAppStatus.STOP
         self._state_btn.configure(image=PLAY_ICON, command=self.start_watching, border_width=0)
+        self._status = ClipAppStatus.STOP
 
     def start_watching(self):
         self._window.clipboard_clear()
-        self._status = ClipAppStatus.START
         self._state_btn.configure(image=STOP_ICON, command=self.stop_watching, border_width=2)
+        self._status = ClipAppStatus.START
         self.get_clipboard_content()
 
     def clear_storage(self):
         self._text_box.delete("0.0", tk.END)
 
     def select_all(self):
+        self.stop_watching()
         storage_content = self._text_box.get("0.0", tk.END).strip()
         self._window.clipboard_append(storage_content)
 
