@@ -12,7 +12,7 @@ customtkinter = "^5.1.2"
 pillow = "^9.5.0"
 
 [tool.poetry.scripts]
-clipwt = 'clipwt.clipwt:launch'
+clipwt = 'clipwt.clipwt_app:launch'
 
 
 [build-system]

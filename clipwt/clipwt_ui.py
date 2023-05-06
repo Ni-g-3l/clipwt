@@ -4,26 +4,22 @@ from tkinter import *
 import customtkinter
 from PIL import Image
 
+from clipwt.clipwt_constants import CLEAR_ICON_PATH, CLIP_ICON_PATH, ICON_SIZE, PLAY_ICON_PATH, STOP_ICON_PATH, ClipAppStatus
+
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("blue")
 
 image_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "ressources")
-PLAY_ICON = customtkinter.CTkImage(Image.open(os.path.join(image_path, "icon_play.png")), size=(16,16))
-STOP_ICON = customtkinter.CTkImage(Image.open(os.path.join(image_path, "icon_stop.png")), size=(16,16))
-CLIP_ICON = customtkinter.CTkImage(Image.open(os.path.join(image_path, "icon_clip.png")), size=(16,16))
-CLEAR_ICON = customtkinter.CTkImage(Image.open(os.path.join(image_path, "icon_clear.png")), size=(16,16))
+PLAY_ICON = customtkinter.CTkImage(Image.open(PLAY_ICON_PATH), size=ICON_SIZE)
+STOP_ICON = customtkinter.CTkImage(Image.open(STOP_ICON_PATH), size=ICON_SIZE)
+CLIP_ICON = customtkinter.CTkImage(Image.open(CLIP_ICON_PATH), size=ICON_SIZE)
+CLEAR_ICON = customtkinter.CTkImage(Image.open(CLEAR_ICON_PATH), size=ICON_SIZE)
 
-class ClipAppStatus:
+class ClipWtApp:
 
-    START = 0x1
-    STOP = 0x11
-
-
-class ClipWt:
-
-    def __init__(self) -> None:
-        self._last_content = None
-        self._status = ClipAppStatus.STOP
+    def __init__(self, controller) -> None:
+        self._controller = controller
+        self._model = controller._model
         self._init_ui()
 
     def _init_ui(self):
@@ -71,44 +67,34 @@ class ClipWt:
         try:
             clipboard_content = self._window.selection_get(selection="CLIPBOARD").strip()
         except:
-            clipboard_content = None
+            clipboard_content = ""
 
-        storage_content = self._text_box.get("0.0", tk.END).strip()
+        self._controller.set_content(clipboard_content)
 
-        if storage_content:
-            new_storage_value = f"{storage_content}\n{clipboard_content}"
-        else:
-            new_storage_value = f"{clipboard_content}"
-
-        if clipboard_content != self._last_content:
+        if self._model.content:
             self._text_box.delete("0.0", tk.END)
-            self._text_box.insert("0.0", new_storage_value)
-            self._last_content = clipboard_content
+            self._text_box.insert("0.0", self._model.content)
         
-        if self._status == ClipAppStatus.START:
+        if self._model.status == ClipAppStatus.START:
             self._text_box.after(1000, self.get_clipboard_content)
 
     def stop_watching(self):
+        self._controller.stop_watching()
         self._state_btn.configure(image=PLAY_ICON, command=self.start_watching, border_width=0)
-        self._status = ClipAppStatus.STOP
 
     def start_watching(self):
         self._window.clipboard_clear()
         self._state_btn.configure(image=STOP_ICON, command=self.stop_watching, border_width=2)
-        self._status = ClipAppStatus.START
+        self._controller.start_watching()
         self.get_clipboard_content()
 
     def clear_storage(self):
+        self._controller.clear_storage()
         self._text_box.delete("0.0", tk.END)
 
     def select_all(self):
         self.stop_watching()
-        storage_content = self._text_box.get("0.0", tk.END).strip()
-        self._window.clipboard_append(storage_content)
+        self._window.clipboard_append(self._model.content)
 
     def show(self):
         self._window.mainloop()
-
-def launch():
-    app = ClipWt()
-    app.show()
