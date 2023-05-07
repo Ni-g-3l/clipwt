@@ -10,13 +10,11 @@ ClipWt is a little tool developped in order to store clipboard content into a pl
 <img src="./ressources/clipwt.png" width=160>
 </center>
 
-## 🐛 Issues / Bugs / FAQs / Feature Requests
+### Launch
 
-If you encounter any issues or have any ideas, please file them in our [Issue Tracker](https://github.com/Ni-g-3l/clipwt/issues).
-
-## ✋ Contributing
-
-Please read [CONTRIBUTING.md](CONTRIBUTING) for details on our code of conduct, and the process for submitting pull requests to us.
+```bash
+clipwt
+```
 
 ## 🔢 Versioning
 
