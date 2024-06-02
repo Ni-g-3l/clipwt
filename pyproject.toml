@@ -10,6 +10,8 @@ readme = "README.md"
 python = "^3.8"
 customtkinter = "^5.1.2"
 pillow = "^9.5.0"
+dearpygui = "^1.11.1"
+pyperclip = "^1.8.2"
 
 [tool.poetry.scripts]
 clipwt = 'clipwt.clipwt_app:launch'
