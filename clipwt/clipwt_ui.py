@@ -16,7 +16,7 @@ class ClipWtApp:
     def _init_ui(self):
         dpg.create_context()
 
-        with dpg.window(tag="window"):
+        with dpg.window(tag="window", no_resize=True):
             with dpg.group(horizontal=True):
                 dpg.add_button(label="Play", callback=self.toggle_state, tag="state_button", width=100)
                 dpg.add_button(label="Copy", callback=self.copy_storage, tag="copy_button", width
@@ -25,7 +25,7 @@ class ClipWtApp:
             dpg.add_separator()
             dpg.add_listbox([], num_items=22, tag="contents", width=320)
 
-        dpg.create_viewport(title="📋 - ClipWt", width=340, height=427)
+        dpg.create_viewport(title="📋 - ClipWt", resizable=False, width=340, height=427)
         dpg.setup_dearpygui()
 
     def get_clipboard_content(self):
