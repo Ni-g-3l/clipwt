@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "clipwt"
-version = "0.1.0"
+version = "0.2.0"
 description = "Little tool to gather content from your clipboard"
 authors = ["Nig3l <nig3lpro@gmail.com>"]
 license = "MIT LICENSE"
